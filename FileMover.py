@@ -1,3 +1,7 @@
+"""
+A simple module to transfer files from one directory to another
+"""
+
 import os
 import shutil
 
@@ -5,8 +9,9 @@ import shutil
 def get_all_files(directory):
     """
     Returns all of the files in a given directory, including nested ones
-    :param directory: string
-    :return: list
+
+    :param directory: String - directory to retrieve the files from
+    :return: List - containing each file in the directory including path
     """
 
     dir_list = os.listdir(directory)
@@ -23,9 +28,9 @@ def move_successful(num_files, target_folder):
     """
     Checks if the files were moved/copied successfully
 
-    :param num_files: int
-    :param target_folder: string
-    :return: string
+    :param num_files: Int - number of files in the directory
+    :param target_folder: String - argument for the destination folder
+    :return: String - transfer status as string
     """
     count = 0
 
@@ -46,8 +51,10 @@ def move_successful(num_files, target_folder):
 def move_files(files, target_folder):
     """
     Moves all files in the given directory, and removes them from folders
-    :param files: list
-    :param target_folder: string
+
+    :param files: List - files to be transferred
+    :param target_folder: String - argument for the destination folder
+    :return: none
     """
 
     for file in files:
@@ -62,9 +69,10 @@ def move_files(files, target_folder):
 def copy_files(files, target_folder):
     """
     Copies all files to destination without deleting any
-    :param files: list
-    :param target_folder: string
-    :return: nothing
+
+    :param files: List - files to be transferred
+    :param target_folder: String - argument for the destination folder
+    :return: none
     """
 
     for file in files:
@@ -80,10 +88,10 @@ def move_files_with_extension(files, extension, target_folder):
     """
     Moves all files to the directory with a given extension
 
-    :param files: list
-    :param extension: string
-    :param target_folder: string
-    :return: nothing
+    :param files: List - files to be transferred
+    :param extension: String - specified file extension
+    :param target_folder: String - argument for the destination folder
+    :return: none
     """
 
     if len(files) == 0:
@@ -102,12 +110,12 @@ def move_files_with_extension(files, extension, target_folder):
 
 def copy_files_with_extension(files, extension, target_folder):
     """
-    Moves all files to the directory with a given extension
+    Copies all files to the directory with a given extension
 
-    :param files: list
-    :param extension: string
-    :param target_folder: string
-    :return: nothing
+    :param files: List - files to be transferred
+    :param extension: String - specified file extension
+    :param target_folder: String - argument for the destination folder
+    :return: none
     """
 
     if len(files) == 0:
@@ -126,8 +134,9 @@ def copy_files_with_extension(files, extension, target_folder):
 
 def start():
     """
-    The controller module that keeps track of everything
-    :return: nothing
+    The controller function that controls the flow of the program
+
+    :return: none
     """
 
     directory = input("Please enter a directory\n:>")

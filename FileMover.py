@@ -48,43 +48,7 @@ def move_successful(num_files, target_folder):
     return "Some files were moved successfully"
 
 
-def move_files(files, target_folder):
-    """
-    Moves all files in the given directory, and removes them from folders
-
-    :param files: List - files to be transferred
-    :param target_folder: String - argument for the destination folder
-    :return: none
-    """
-
-    for file in files:
-        try:
-            shutil.move(file, target_folder)
-        except PermissionError:
-            print("Error moving file "+file + "\n")
-
-    print(move_successful(len(files), target_folder))
-
-
-def copy_files(files, target_folder):
-    """
-    Copies all files to destination without deleting any
-
-    :param files: List - files to be transferred
-    :param target_folder: String - argument for the destination folder
-    :return: none
-    """
-
-    for file in files:
-        try:
-            shutil.copy(file, target_folder)
-        except PermissionError:
-            print(file + "was not moved successfully")
-
-    print(move_successful(len(files), target_folder))
-
-
-def move_files_with_extension(files, extension, target_folder):
+def move_files(files, target_folder, extension=None):
     """
     Moves all files to the directory with a given extension
 
@@ -94,8 +58,8 @@ def move_files_with_extension(files, extension, target_folder):
     :return: none
     """
 
-    if len(files) == 0:
-        return "No files to be moved"
+    if extension is None:
+        extension = ""
 
     for file in files:
         if file.endswith("." + extension):
@@ -108,7 +72,7 @@ def move_files_with_extension(files, extension, target_folder):
     print(move_successful(len(files), target_folder))
 
 
-def copy_files_with_extension(files, extension, target_folder):
+def copy_files(files, target_folder,  extension=None):
     """
     Copies all files to the directory with a given extension
 
@@ -118,13 +82,13 @@ def copy_files_with_extension(files, extension, target_folder):
     :return: none
     """
 
-    if len(files) == 0:
-        return "No files to be moved"
+    if extension is None:
+        extension = ""
 
     for file in files:
-        if file.endswith("." + extension):
+        if file.endswith(extension):
             try:
-                shutil.move(file, target_folder)
+                shutil.copy(file, target_folder)
             except PermissionError:
                 print("Error moving file "+file + "\n")
             except shutil.Error:
@@ -154,21 +118,19 @@ def start():
     if len(files) == 0:
         return "No files to be moved"
 
-    extension = input("Should I look for a specific extension? Please enter 'n' if not, else enter your extension \n:>")
+    extension = input("Should I look for a specific extension? \n"
+                      " Please enter 'n' if not, else enter your extension with '.' \n:>")
 
     if extension == "n":
-        if option == "m":
-            move_files(files, target_directory)
-        elif option == "c":
-            copy_files(files, target_directory)
-        return
-    else:
-        if option == "m":
-            move_files_with_extension(files, extension, target_directory)
-        elif option == "c":
-            copy_files_with_extension(files, extension, target_directory)
+        extension = None
+
+    if option == "m":
+        move_files(files, target_directory, extension)
+    elif option == "c":
+        copy_files(files, target_directory, extension)
+
+    return
 
 
 if __name__ == "__main__":
     start()
-
